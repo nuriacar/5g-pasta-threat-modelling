@@ -1,0 +1,54 @@
+index,source,target,logic,label
+1,IS-NSA,V-T01,OR,NSA exposes IMSI
+2,IS-NSA,V-T02,OR,NSA enables fake BS
+3,IS-NSA,V-T03,OR,NSA enables downgrade
+4,IS-NSA,V-T14,OR,Cross-mode identity link
+5,IS-PHYSICAL,V-T02,OR,Physical BS deployment
+6,IS-PHYSICAL,V-T11,OR,Physical RAN jamming
+7,IS-PHYSICAL,V-T13,OR,Fronthaul intercept
+8,V-T01,C-UE,OR,IMSI captured
+9,V-T02,C-SIGNAL,OR,Fake BS active
+10,V-T03,C-SIGNAL,OR,Downgrade forced
+11,V-T11,C-RAN,OR,RAN flooded
+12,V-T14,C-UE,OR,Cross-mode identity
+13,C-SIGNAL,C-UE,OR,Signalling reveals ID
+14,IS-SA,V-T04,OR,SA exposes NRF
+15,IS-SA,V-T05,OR,SA exposes SBI
+16,IS-SA,V-T06,OR,SA uses slicing
+17,IS-SA,V-T07,OR,SA deploys MEC
+18,IS-SA,V-T08,OR,SA uses AUSF
+19,IS-SA,V-T09,OR,Data stored in UDM
+20,IS-SA,V-T10,OR,SA routes through UPF
+21,IS-SA,V-T15,OR,Auth chain vulnerable
+22,V-T04,C-NRF,OR,NRF unauthorised registration
+23,V-T05,C-NF,OR,SBI traffic intercepted
+24,V-T05,C-SMF,OR,SBI session hijack
+25,V-T06,C-SLICE,OR,Slice isolation broken
+26,V-T07,C-AMF,OR,AMF registration spoofed
+27,V-T08,C-AUSF,OR,Auth bypassed
+28,V-T09,C-UDM,OR,Subscriber data exposed
+29,V-T10,C-UPF,OR,User plane intercepted
+30,V-T15,C-AUSF,OR,Auth failure storm
+31,C-NRF,C-NF,OR,Poisoned registry
+32,C-AMF,C-NF,OR,AMF takeover
+33,C-SMF,C-NF,OR,SMF session hijack
+34,C-UPF,C-NF,OR,UPF compromise
+35,IS-INSIDER,V-T12,OR,Insider supply chain
+36,IS-INSIDER,V-T05,OR,Insider exploits SBI
+37,V-T12,C-SUPPLY,OR,Supply chain infected
+38,V-T13,C-RAN,OR,Fronthaul intercepted
+39,C-SUPPLY,C-NF,OR,Compromised core component
+40,C-SUPPLY,C-RAN,OR,Compromised RAN component
+41,C-UE,I-PRIVACY,OR,Identity exposed
+42,C-AUSF,I-PRIVACY,OR,Auth bypass exposes IDs
+43,C-UDM,I-PRIVACY,OR,Subscriber data leak
+44,C-SIGNAL,I-SERVICE,OR,Signalling disruption
+45,C-RAN,I-SERVICE,OR,RAN manipulation
+46,C-NF,I-SERVICE,OR,NF compromise
+47,C-SLICE,I-SERVICE,OR,Slice breach
+48,C-NF,I-DATA,OR,NF data exfiltration
+49,C-UDM,I-DATA,OR,Subscriber data exfiltration
+50,C-UPF,I-DATA,OR,User plane intercepted
+51,C-SLICE,I-DATA,OR,Cross-tenant data access
+52,C-NF,I-INTEGRITY,OR,Config tampering
+53,C-SUPPLY,I-INTEGRITY,OR,Persistent backdoor

@@ -1,0 +1,43 @@
+node,type,prior,source
+IS-NSA,initial,0.5,uninformative 0.5
+IS-SA,initial,0.5,uninformative 0.5
+IS-INSIDER,initial,0.5,uninformative 0.5
+IS-PHYSICAL,initial,0.5,uninformative 0.5
+V-T01,vulnerability,0.8769230769230769,Eq.3 from OWASP Likelihood
+V-T02,vulnerability,0.99,Eq.3 from OWASP Likelihood
+V-T03,vulnerability,0.23615384615384633,Eq.3 from OWASP Likelihood
+V-T04,vulnerability,0.19846153846153844,Eq.3 from OWASP Likelihood
+V-T05,vulnerability,0.3492307692307693,Eq.3 from OWASP Likelihood
+V-T06,vulnerability,0.6884615384615386,Eq.3 from OWASP Likelihood
+V-T07,vulnerability,0.1607692307692309,Eq.3 from OWASP Likelihood
+V-T08,vulnerability,0.38692307692307687,Eq.3 from OWASP Likelihood
+V-T09,vulnerability,0.4623076923076923,Eq.3 from OWASP Likelihood
+V-T10,vulnerability,0.1607692307692309,Eq.3 from OWASP Likelihood
+V-T11,vulnerability,0.1607692307692309,Eq.3 from OWASP Likelihood
+V-T12,vulnerability,0.01,Eq.3 from OWASP Likelihood
+V-T13,vulnerability,0.19846153846153844,Eq.3 from OWASP Likelihood
+V-T14,vulnerability,0.08538461538461543,Eq.3 from OWASP Likelihood
+V-T15,vulnerability,0.4623076923076923,Eq.3 from OWASP Likelihood
+C-UE,compromise,0.5,uninformative 0.5
+C-NF,compromise,0.5,uninformative 0.5
+C-SLICE,compromise,0.5,uninformative 0.5
+C-SIGNAL,compromise,0.5,uninformative 0.5
+C-SUPPLY,compromise,0.5,uninformative 0.5
+C-AMF,compromise,0.5,uninformative 0.5
+C-SMF,compromise,0.5,uninformative 0.5
+C-UPF,compromise,0.5,uninformative 0.5
+C-AUSF,compromise,0.5,uninformative 0.5
+C-UDM,compromise,0.5,uninformative 0.5
+C-NRF,compromise,0.5,uninformative 0.5
+C-RAN,compromise,0.5,uninformative 0.5
+I-PRIVACY,impact,0.5,uninformative 0.5
+I-SERVICE,impact,0.5,uninformative 0.5
+I-DATA,impact,0.5,uninformative 0.5
+I-INTEGRITY,impact,0.5,uninformative 0.5
+
+parameter,value
+lambda,0.05
+w,0.85
+epsilon,0.01
+L_min,4.6
+L_max,7.2

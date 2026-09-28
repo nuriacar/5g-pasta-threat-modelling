@@ -1,0 +1,757 @@
+{
+ "description": "35-node Bayesian Attack Graph for 5G PASTA threat model (NSA/SA). See the accompanying paper.",
+ "parameters": {
+  "leak_lambda": 0.05,
+  "gate_weight": 0.85,
+  "eq3_epsilon": 0.01,
+  "eq3_L_min": 4.6,
+  "eq3_L_max": 7.2,
+  "cpt": "Noisy-OR, child-centric p = node's own prior"
+ },
+ "nodes": [
+  {
+   "id": "IS-NSA",
+   "name": "NSA Deployment",
+   "layer": 1,
+   "type": "initial",
+   "prior": 0.5,
+   "parents": []
+  },
+  {
+   "id": "IS-SA",
+   "name": "SA Deployment",
+   "layer": 1,
+   "type": "initial",
+   "prior": 0.5,
+   "parents": []
+  },
+  {
+   "id": "IS-INSIDER",
+   "name": "Insider Access",
+   "layer": 1,
+   "type": "initial",
+   "prior": 0.5,
+   "parents": []
+  },
+  {
+   "id": "IS-PHYSICAL",
+   "name": "Physical RAN Access",
+   "layer": 1,
+   "type": "initial",
+   "prior": 0.5,
+   "parents": []
+  },
+  {
+   "id": "V-T01",
+   "name": "Downgrade Attack",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 6.9,
+   "component": "Auth",
+   "mode": "NSA",
+   "attack_mapping": "T1562.001",
+   "prior": 0.8769230769230769,
+   "parents": [
+    "IS-NSA"
+   ]
+  },
+  {
+   "id": "V-T02",
+   "name": "IMSI Catcher",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 7.2,
+   "component": "Auth",
+   "mode": "NSA",
+   "attack_mapping": "T1589*",
+   "prior": 0.99,
+   "parents": [
+    "IS-NSA",
+    "IS-PHYSICAL"
+   ]
+  },
+  {
+   "id": "V-T03",
+   "name": "EPS-AKA Mismatch",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.2,
+   "component": "Auth",
+   "mode": "NSA",
+   "attack_mapping": "T1557",
+   "prior": 0.23615384615384633,
+   "parents": [
+    "IS-NSA"
+   ]
+  },
+  {
+   "id": "V-T04",
+   "name": "Unauthorised NF Registration",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.1,
+   "component": "Core/SBA",
+   "mode": "SA",
+   "attack_mapping": "T1553.006",
+   "prior": 0.19846153846153844,
+   "parents": [
+    "IS-SA"
+   ]
+  },
+  {
+   "id": "V-T05",
+   "name": "API Abuse (HTTP/2 SBI)",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.5,
+   "component": "Core/SBA",
+   "mode": "SA",
+   "attack_mapping": "T1190",
+   "prior": 0.3492307692307693,
+   "parents": [
+    "IS-SA",
+    "IS-INSIDER"
+   ]
+  },
+  {
+   "id": "V-T06",
+   "name": "Signalling Storm",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 6.4,
+   "component": "Core/SBA",
+   "mode": "SA",
+   "attack_mapping": "T1498",
+   "prior": 0.6884615384615386,
+   "parents": [
+    "IS-SA"
+   ]
+  },
+  {
+   "id": "V-T07",
+   "name": "Rogue Edge Node",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.0,
+   "component": "Edge/MEC",
+   "mode": "SA",
+   "attack_mapping": "T1195.002",
+   "prior": 0.1607692307692309,
+   "parents": [
+    "IS-SA"
+   ]
+  },
+  {
+   "id": "V-T08",
+   "name": "Third-party App Compromise",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.6,
+   "component": "Edge/MEC",
+   "mode": "SA",
+   "attack_mapping": "T1195.001",
+   "prior": 0.38692307692307687,
+   "parents": [
+    "IS-SA"
+   ]
+  },
+  {
+   "id": "V-T09",
+   "name": "Edge Data Exposure",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.8,
+   "component": "Edge/MEC",
+   "mode": "SA",
+   "attack_mapping": "T1530",
+   "prior": 0.4623076923076923,
+   "parents": [
+    "IS-SA"
+   ]
+  },
+  {
+   "id": "V-T10",
+   "name": "Cross-slice DoS",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.0,
+   "component": "Slicing",
+   "mode": "SA",
+   "attack_mapping": "T1498",
+   "prior": 0.1607692307692309,
+   "parents": [
+    "IS-SA"
+   ]
+  },
+  {
+   "id": "V-T11",
+   "name": "Resource Hijacking",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.0,
+   "component": "Slicing",
+   "mode": "SA",
+   "attack_mapping": "T1496",
+   "prior": 0.1607692307692309,
+   "parents": [
+    "IS-PHYSICAL"
+   ]
+  },
+  {
+   "id": "V-T12",
+   "name": "Slice Policy Bypass",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 4.6,
+   "component": "Slicing",
+   "mode": "SA",
+   "attack_mapping": "T1548",
+   "prior": 0.01,
+   "parents": [
+    "IS-INSIDER"
+   ]
+  },
+  {
+   "id": "V-T13",
+   "name": "SUCI Replay",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.1,
+   "component": "Auth",
+   "mode": "SA",
+   "attack_mapping": "T1589*",
+   "prior": 0.19846153846153844,
+   "parents": [
+    "IS-PHYSICAL"
+   ]
+  },
+  {
+   "id": "V-T14",
+   "name": "SUPI De-anonymisation",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 4.8,
+   "component": "Auth",
+   "mode": "NSA-to-SA",
+   "attack_mapping": "T1589*",
+   "prior": 0.08538461538461543,
+   "parents": [
+    "IS-NSA"
+   ]
+  },
+  {
+   "id": "V-T15",
+   "name": "Authentication Sync Failure",
+   "layer": 2,
+   "type": "vulnerability",
+   "owasp_likelihood": 5.8,
+   "component": "Auth",
+   "mode": "SA",
+   "attack_mapping": "T1557",
+   "prior": 0.4623076923076923,
+   "parents": [
+    "IS-SA"
+   ]
+  },
+  {
+   "id": "C-UE",
+   "name": "UE Compromised",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T01",
+    "V-T14",
+    "C-SIGNAL"
+   ]
+  },
+  {
+   "id": "C-NF",
+   "name": "NF Compromised",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T05",
+    "C-NRF",
+    "C-AMF",
+    "C-SMF",
+    "C-UPF",
+    "C-SUPPLY"
+   ]
+  },
+  {
+   "id": "C-SLICE",
+   "name": "Slice Breached",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T06"
+   ]
+  },
+  {
+   "id": "C-SIGNAL",
+   "name": "Signalling Active",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T02",
+    "V-T03"
+   ]
+  },
+  {
+   "id": "C-SUPPLY",
+   "name": "Supply Chain Compromised",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T12"
+   ]
+  },
+  {
+   "id": "C-AMF",
+   "name": "AMF Takeover",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T07"
+   ]
+  },
+  {
+   "id": "C-SMF",
+   "name": "SMF Hijack",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T05"
+   ]
+  },
+  {
+   "id": "C-UPF",
+   "name": "UPF Intercept",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T10"
+   ]
+  },
+  {
+   "id": "C-AUSF",
+   "name": "Auth Bypass",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T08",
+    "V-T15"
+   ]
+  },
+  {
+   "id": "C-UDM",
+   "name": "Subscriber Data Leak",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T09"
+   ]
+  },
+  {
+   "id": "C-NRF",
+   "name": "Registry Poison",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T04"
+   ]
+  },
+  {
+   "id": "C-RAN",
+   "name": "RAN Manipulation",
+   "layer": 3,
+   "type": "compromise",
+   "prior": 0.5,
+   "parents": [
+    "V-T11",
+    "V-T13",
+    "C-SUPPLY"
+   ]
+  },
+  {
+   "id": "I-PRIVACY",
+   "name": "Privacy Violation",
+   "layer": 4,
+   "type": "impact",
+   "prior": 0.5,
+   "parents": [
+    "C-UE",
+    "C-AUSF",
+    "C-UDM"
+   ]
+  },
+  {
+   "id": "I-SERVICE",
+   "name": "Service Disruption",
+   "layer": 4,
+   "type": "impact",
+   "prior": 0.5,
+   "parents": [
+    "C-SIGNAL",
+    "C-RAN",
+    "C-NF",
+    "C-SLICE"
+   ]
+  },
+  {
+   "id": "I-DATA",
+   "name": "Data Exfiltration",
+   "layer": 4,
+   "type": "impact",
+   "prior": 0.5,
+   "parents": [
+    "C-NF",
+    "C-UDM",
+    "C-UPF",
+    "C-SLICE"
+   ]
+  },
+  {
+   "id": "I-INTEGRITY",
+   "name": "Integrity Loss",
+   "layer": 4,
+   "type": "impact",
+   "prior": 0.5,
+   "parents": [
+    "C-NF",
+    "C-SUPPLY"
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "from": "IS-NSA",
+   "to": "V-T01",
+   "logic": "OR",
+   "label": "NSA exposes IMSI"
+  },
+  {
+   "from": "IS-NSA",
+   "to": "V-T02",
+   "logic": "OR",
+   "label": "NSA enables fake BS"
+  },
+  {
+   "from": "IS-NSA",
+   "to": "V-T03",
+   "logic": "OR",
+   "label": "NSA enables downgrade"
+  },
+  {
+   "from": "IS-NSA",
+   "to": "V-T14",
+   "logic": "OR",
+   "label": "Cross-mode identity link"
+  },
+  {
+   "from": "IS-PHYSICAL",
+   "to": "V-T02",
+   "logic": "OR",
+   "label": "Physical BS deployment"
+  },
+  {
+   "from": "IS-PHYSICAL",
+   "to": "V-T11",
+   "logic": "OR",
+   "label": "Physical RAN jamming"
+  },
+  {
+   "from": "IS-PHYSICAL",
+   "to": "V-T13",
+   "logic": "OR",
+   "label": "Fronthaul intercept"
+  },
+  {
+   "from": "V-T01",
+   "to": "C-UE",
+   "logic": "OR",
+   "label": "IMSI captured"
+  },
+  {
+   "from": "V-T02",
+   "to": "C-SIGNAL",
+   "logic": "OR",
+   "label": "Fake BS active"
+  },
+  {
+   "from": "V-T03",
+   "to": "C-SIGNAL",
+   "logic": "OR",
+   "label": "Downgrade forced"
+  },
+  {
+   "from": "V-T11",
+   "to": "C-RAN",
+   "logic": "OR",
+   "label": "RAN flooded"
+  },
+  {
+   "from": "V-T14",
+   "to": "C-UE",
+   "logic": "OR",
+   "label": "Cross-mode identity"
+  },
+  {
+   "from": "C-SIGNAL",
+   "to": "C-UE",
+   "logic": "OR",
+   "label": "Signalling reveals ID"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T04",
+   "logic": "OR",
+   "label": "SA exposes NRF"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T05",
+   "logic": "OR",
+   "label": "SA exposes SBI"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T06",
+   "logic": "OR",
+   "label": "SA uses slicing"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T07",
+   "logic": "OR",
+   "label": "SA deploys MEC"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T08",
+   "logic": "OR",
+   "label": "SA uses AUSF"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T09",
+   "logic": "OR",
+   "label": "Data stored in UDM"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T10",
+   "logic": "OR",
+   "label": "SA routes through UPF"
+  },
+  {
+   "from": "IS-SA",
+   "to": "V-T15",
+   "logic": "OR",
+   "label": "Auth chain vulnerable"
+  },
+  {
+   "from": "V-T04",
+   "to": "C-NRF",
+   "logic": "OR",
+   "label": "NRF unauthorised registration"
+  },
+  {
+   "from": "V-T05",
+   "to": "C-NF",
+   "logic": "OR",
+   "label": "SBI traffic intercepted"
+  },
+  {
+   "from": "V-T05",
+   "to": "C-SMF",
+   "logic": "OR",
+   "label": "SBI session hijack"
+  },
+  {
+   "from": "V-T06",
+   "to": "C-SLICE",
+   "logic": "OR",
+   "label": "Slice isolation broken"
+  },
+  {
+   "from": "V-T07",
+   "to": "C-AMF",
+   "logic": "OR",
+   "label": "AMF registration spoofed"
+  },
+  {
+   "from": "V-T08",
+   "to": "C-AUSF",
+   "logic": "OR",
+   "label": "Auth bypassed"
+  },
+  {
+   "from": "V-T09",
+   "to": "C-UDM",
+   "logic": "OR",
+   "label": "Subscriber data exposed"
+  },
+  {
+   "from": "V-T10",
+   "to": "C-UPF",
+   "logic": "OR",
+   "label": "User plane intercepted"
+  },
+  {
+   "from": "V-T15",
+   "to": "C-AUSF",
+   "logic": "OR",
+   "label": "Auth failure storm"
+  },
+  {
+   "from": "C-NRF",
+   "to": "C-NF",
+   "logic": "OR",
+   "label": "Poisoned registry"
+  },
+  {
+   "from": "C-AMF",
+   "to": "C-NF",
+   "logic": "OR",
+   "label": "AMF takeover"
+  },
+  {
+   "from": "C-SMF",
+   "to": "C-NF",
+   "logic": "OR",
+   "label": "SMF session hijack"
+  },
+  {
+   "from": "C-UPF",
+   "to": "C-NF",
+   "logic": "OR",
+   "label": "UPF compromise"
+  },
+  {
+   "from": "IS-INSIDER",
+   "to": "V-T12",
+   "logic": "OR",
+   "label": "Insider supply chain"
+  },
+  {
+   "from": "IS-INSIDER",
+   "to": "V-T05",
+   "logic": "OR",
+   "label": "Insider exploits SBI"
+  },
+  {
+   "from": "V-T12",
+   "to": "C-SUPPLY",
+   "logic": "OR",
+   "label": "Supply chain infected"
+  },
+  {
+   "from": "V-T13",
+   "to": "C-RAN",
+   "logic": "OR",
+   "label": "Fronthaul intercepted"
+  },
+  {
+   "from": "C-SUPPLY",
+   "to": "C-NF",
+   "logic": "OR",
+   "label": "Compromised core component"
+  },
+  {
+   "from": "C-SUPPLY",
+   "to": "C-RAN",
+   "logic": "OR",
+   "label": "Compromised RAN component"
+  },
+  {
+   "from": "C-UE",
+   "to": "I-PRIVACY",
+   "logic": "OR",
+   "label": "Identity exposed"
+  },
+  {
+   "from": "C-AUSF",
+   "to": "I-PRIVACY",
+   "logic": "OR",
+   "label": "Auth bypass exposes IDs"
+  },
+  {
+   "from": "C-UDM",
+   "to": "I-PRIVACY",
+   "logic": "OR",
+   "label": "Subscriber data leak"
+  },
+  {
+   "from": "C-SIGNAL",
+   "to": "I-SERVICE",
+   "logic": "OR",
+   "label": "Signalling disruption"
+  },
+  {
+   "from": "C-RAN",
+   "to": "I-SERVICE",
+   "logic": "OR",
+   "label": "RAN manipulation"
+  },
+  {
+   "from": "C-NF",
+   "to": "I-SERVICE",
+   "logic": "OR",
+   "label": "NF compromise"
+  },
+  {
+   "from": "C-SLICE",
+   "to": "I-SERVICE",
+   "logic": "OR",
+   "label": "Slice breach"
+  },
+  {
+   "from": "C-NF",
+   "to": "I-DATA",
+   "logic": "OR",
+   "label": "NF data exfiltration"
+  },
+  {
+   "from": "C-UDM",
+   "to": "I-DATA",
+   "logic": "OR",
+   "label": "Subscriber data exfiltration"
+  },
+  {
+   "from": "C-UPF",
+   "to": "I-DATA",
+   "logic": "OR",
+   "label": "User plane intercepted"
+  },
+  {
+   "from": "C-SLICE",
+   "to": "I-DATA",
+   "logic": "OR",
+   "label": "Cross-tenant data access"
+  },
+  {
+   "from": "C-NF",
+   "to": "I-INTEGRITY",
+   "logic": "OR",
+   "label": "Config tampering"
+  },
+  {
+   "from": "C-SUPPLY",
+   "to": "I-INTEGRITY",
+   "logic": "OR",
+   "label": "Persistent backdoor"
+  }
+ ]
+}
