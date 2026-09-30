@@ -13,6 +13,7 @@ ATT&CK-Mapped Kill Chains for NSA and SA Deployments".
 | `probability_matrix.csv` | Prior for every node with its source (Eq. 3 from OWASP Likelihood, or uninformative 0.5) + Noisy-OR parameters |
 | `cnf_cpt.csv` | Full 64-entry conditional probability table of C-NF (six parents) |
 | `owasp_scoring.csv` | 15 threats x 16 OWASP sub-factor scores + aggregates (TAF, VF, TI, BI, Likelihood, Impact) |
+| `mitigation_scoring.csv` | 15 threats x pre-/post-mitigation Likelihood/Impact + 3GPP control reference and rationale (paper Table `tab:mitigation`) |
 | `simulation.py` | Self-contained exact inference engine (min-degree variable elimination) |
 | `sensitivity.py` | Prior-perturbation analysis: ±10% and ±20% on all 15 vulnerability priors |
 | `build_data_files.py` | Regenerates all data files above from the model definitions |

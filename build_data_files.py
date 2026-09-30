@@ -122,13 +122,49 @@ def main():
         for tid in VULN_IDS:
             wr.writerow([tid] + list(OWASP[tid]))
 
+    # ---- mitigation_scoring.csv ----------------------------------------------
+    # Pre-mitigation Likelihood/Impact = OWASP aggregates (owasp_scoring.csv).
+    # Post-mitigation values follow the paper rule: re-rate only the
+    # sub-factors the cited 3GPP control directly addresses; all other
+    # sub-factors are unchanged (paper Table `tab:mitigation`).
+    MITIGATION = {
+        "V-T01": ("TS 33.501 §5.1.1", 6.3, 5.8, "anti-downgrade; likelihood-only effect"),
+        "V-T02": ("N/A (4G EPC limitation)", 7.2, 6.0, "architectural limitation; unchanged"),
+        "V-T03": ("TS 33.501 §6.1", 5.2, 4.6, "authentication likelihood only; impact unchanged"),
+        "V-T04": ("TS 33.501 §13.1, §13.4.1.3", 4.5, 5.5, "mutual TLS, NRF authentication"),
+        "V-T05": ("TS 33.501 §13.4.1", 4.8, 5.2, "OAuth 2.0 based authorisation"),
+        "V-T06": ("TS 33.501 §6.4.7", 5.2, 3.5, "SMS over NAS security"),
+        "V-T07": ("TS 33.501 Annex T", 4.5, 5.8, "edge computing security"),
+        "V-T08": ("TS 33.501 Annex T", 4.8, 4.2, "edge computing security"),
+        "V-T09": ("TS 33.501 Annex T, §9", 5.0, 4.5, "edge transport security"),
+        "V-T10": ("TS 33.501 §16.2", 4.5, 3.2, "slice access authorisation"),
+        "V-T11": ("TS 33.501 §16", 4.5, 3.8, "network slice security"),
+        "V-T12": ("TS 33.501 §16.3", 4.2, 7.5, "slice-specific authentication"),
+        "V-T13": ("TS 33.501 §6.1", 4.5, 3.8, "registration integrity"),
+        "V-T14": ("TS 33.501 §6.1", 4.2, 5.2, "SUCI encryption"),
+        "V-T15": ("TS 33.501 §6.1", 5.0, 4.2, "SQN management"),
+    }
+    with open("mitigation_scoring.csv", "w", newline="") as fh:
+        wr = csv.writer(fh)
+        wr.writerow(["threat_id", "pre_likelihood", "pre_impact",
+                     "post_likelihood", "post_impact",
+                     "control_reference", "rationale"])
+        for tid in VULN_IDS:
+            ref, pl, pi, why = MITIGATION[tid]
+            wr.writerow([tid, f"{OWASP[tid][10]:.1f}", f"{OWASP[tid][21]:.1f}",
+                         f"{pl:.1f}", f"{pi:.1f}", ref, why])
+
     print("wrote: attack_graph.json, edge_list.csv, probability_matrix.csv,"
-          " cnf_cpt.csv, owasp_scoring.csv")
+          " cnf_cpt.csv, owasp_scoring.csv, mitigation_scoring.csv")
     # sanity: priors derived from the OWASP table must match Eq. 3
     for tid, _, _, lik, *_ in THREATS:
         assert abs(eq3_prior(lik) - priors[tid]) < 1e-12
         assert abs(OWASP[tid][10] - lik) < 1e-9, (tid, OWASP[tid][10], lik)
-    print("sanity: OWASP likelihoods and Eq. 3 priors consistent")
+    # sanity: post-mitigation risk never exceeds pre-mitigation risk
+    for tid in VULN_IDS:
+        _, pl, pi, _ = MITIGATION[tid]
+        assert pl <= OWASP[tid][10] + 1e-9 and pi <= OWASP[tid][21] + 1e-9, tid
+    print("sanity: OWASP likelihoods, Eq. 3 priors, and post<=pre consistent")
 
 
 if __name__ == "__main__":
