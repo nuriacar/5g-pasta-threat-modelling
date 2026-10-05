@@ -163,7 +163,7 @@
    "owasp_likelihood": 5.8,
    "component": "Edge/MEC",
    "mode": "SA",
-   "attack_mapping": "T1530",
+   "attack_mapping": "T1005",
    "prior": 0.4623076923076923,
    "parents": [
     "IS-SA"

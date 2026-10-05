@@ -10,7 +10,7 @@ V-T08,5.6,5.0,4.8,4.2,TS 33.501 Annex T,edge computing security
 V-T09,5.8,5.9,5.0,4.5,"TS 33.501 Annex T, §9",edge transport security
 V-T10,5.0,3.8,4.5,3.2,TS 33.501 §16.2,slice access authorisation
 V-T11,5.0,4.5,4.5,3.8,TS 33.501 §16,network slice security
-V-T12,4.6,8.2,4.2,7.5,TS 33.501 §16.3,slice-specific authentication
+V-T12,4.6,8.1,4.2,7.5,TS 33.501 §16.3,slice-specific authentication
 V-T13,5.1,4.4,4.5,3.8,TS 33.501 §6.1,registration integrity
 V-T14,4.8,6.5,4.2,5.2,TS 33.501 §6.1,SUCI encryption
 V-T15,5.8,4.9,5.0,4.2,TS 33.501 §6.1,SQN management

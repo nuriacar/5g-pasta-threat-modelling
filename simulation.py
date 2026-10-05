@@ -29,7 +29,7 @@ THREATS = [
     ("V-T06", "Signalling Storm", "vuln", 6.4, "Core/SBA", "SA", "T1498"),
     ("V-T07", "Rogue Edge Node", "vuln", 5.0, "Edge/MEC", "SA", "T1195.002"),
     ("V-T08", "Third-party App Compromise", "vuln", 5.6, "Edge/MEC", "SA", "T1195.001"),
-    ("V-T09", "Edge Data Exposure", "vuln", 5.8, "Edge/MEC", "SA", "T1530"),
+    ("V-T09", "Edge Data Exposure", "vuln", 5.8, "Edge/MEC", "SA", "T1005"),
     ("V-T10", "Cross-slice DoS", "vuln", 5.0, "Slicing", "SA", "T1498"),
     ("V-T11", "Resource Hijacking", "vuln", 5.0, "Slicing", "SA", "T1496"),
     ("V-T12", "Slice Policy Bypass", "vuln", 4.6, "Slicing", "SA", "T1548"),
