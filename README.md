@@ -16,6 +16,9 @@ ATT&CK-Mapped Kill Chains for NSA and SA Deployments".
 | `mitigation_scoring.csv` | 15 threats x pre-/post-mitigation Likelihood/Impact + 3GPP control reference and rationale (paper Table `tab:mitigation`) |
 | `simulation.py` | Self-contained exact inference engine (min-degree variable elimination) |
 | `sensitivity.py` | Prior-perturbation analysis: ±10% and ±20% on all 15 vulnerability priors |
+| `mitigation_leverage.py` | Mitigation-leverage sweep: each vulnerability prior in turn reduced to 0.05; ranks all 15 threats by aggregate impact-node reduction (reproduces the invariant top-5 set) |
+| `root_prior_sensitivity.py` | Impact posteriors under IS-INSIDER/IS-PHYSICAL varied over {0.2, 0.5, 0.8} (nine configurations) |
+| `owasp_bootstrap.py` | Flat-score classification stress test: all 240 sub-factors independently resampled by ±1 (fixed seed, 100,000 replicates by default) |
 | `build_data_files.py` | Regenerates all data files above from the model definitions |
 
 ## Model
@@ -57,6 +60,20 @@ what-if mitigation scenarios, and the top-5 mitigation set
 {V-T05, V-T02, V-T06, V-T09, V-T01}. Absolute posteriors shift by at most
 0.029 under ±20%. The leading pair V-T05/V-T02 differs by ~4% at baseline
 and swaps order under the −10% scenario.
+
+The mitigation-leverage sweep (`mitigation_leverage.py`, prior in turn set
+to 0.05) reproduces the invariant top-5 set above from first principles;
+the V-T01 and V-T04 rows reproduce the two published what-if tables.
+V-T12's baseline prior (0.01) lies below the sweep value, so its row
+quantifies a small increase (−0.004 aggregate) rather than a reduction.
+The root-prior sweep (`root_prior_sensitivity.py`) keeps I-SERVICE
+highest and I-INTEGRITY lowest in all nine configurations; the middle
+pair (I-PRIVACY, I-DATA) swaps in three of nine, tracking whether
+physical-RAN or insider paths dominate. The flat-score bootstrap
+(`owasp_bootstrap.py`) keeps at least one 4G legacy threat CRITICAL in
+94.6% of replicates and SA CRITICAL-free in 74.1% (joint: 70.1%);
+independent one-step disagreement is markedly gentler than the uniform
++1 shift, which drives five SA threats to CRITICAL with certainty.
 
 ## License
 
