@@ -1,8 +1,12 @@
 # 5G PASTA Bayesian Attack Graph — Analysis Artifact
 
 Machine-readable data and exact-inference code for the 35-node Bayesian
-Attack Graph (BAG) of the paper "PASTA-Based 5G Network Threat Modelling:
-ATT&CK-Mapped Kill Chains for NSA and SA Deployments".
+Attack Graph (BAG), shared by two companion papers: "PASTA-Based 5G Network
+Threat Modelling: ATT&CK-Mapped Kill Chains for NSA and SA Deployments"
+(threat catalogue, OWASP scoring, bootstrap stability) and
+"Deployment-Conditional Risk Propagation in 5G: Exact Bayesian Attack Graph
+Inference over an ATT&CK-Mapped Threat Catalogue" (priors, posteriors,
+sensitivity, mitigation leverage).
 
 ## Contents
 
